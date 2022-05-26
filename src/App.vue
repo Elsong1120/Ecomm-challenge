@@ -19,7 +19,7 @@
         <img src="../src/assets/image-avatar.png" alt="avatar" />
       </div>
     </header>
-    <hr />
+    <!-- <hr /> -->
 
     <div class="mainContent">
       <div class="slideShowContainer">
@@ -78,41 +78,76 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // align-items: center;
 
   header {
     display: flex;
+    justify-content: space-between;
+    width: 80%;
     height: 10vh;
+    border-bottom: 1px solid rgba($color: #000000, $alpha: 0.2);
     .logo {
       font-size: 30px;
       font-weight: bold;
       margin-left: 15px;
       width: 20%;
+      text-align: left;
     }
     nav {
       width: 60%;
       display: flex;
       align-items: flex-start;
       .nav-list {
-        width: 50%;
+        width: 60%;
+        height: 80%;
 
         list-style-type: none;
         display: flex;
         justify-content: space-evenly;
         li {
           opacity: 0.7;
+          position: relative;
+          height: 100%;
+        }
+        li:hover {
+          cursor: url("data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAf4AAAPVAAAH1QAAB9WAAA3VgAAd/4AAGbaAAAG2gAABtgAAAYAAAAGAAAABgAAAAYAAAAAAAAA//////////////////////////////////////////////////////////////////////////////////////gD///4A///8AP//+AB///AAf//wAD//4AA//8AAP//AAD//5AA///wAf//8Af///D////w////8P////n///8="),
+            auto;
+        }
+        li:hover::before {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          height: 5px;
+          background-color: rgb(234, 131, 56);
         }
       }
     }
 
     .container-avatar {
       display: flex;
+      justify-content: end;
       align-items: center;
       justify-content: space-between;
       i {
         color: #2c3e50;
+        font-size: 1.5vw;
       }
       img {
         width: 50%;
+        border-radius: 50%;
+      }
+
+      i:hover,
+      img:hover {
+        cursor: url("data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAf4AAAPVAAAH1QAAB9WAAA3VgAAd/4AAGbaAAAG2gAABtgAAAYAAAAGAAAABgAAAAYAAAAAAAAA//////////////////////////////////////////////////////////////////////////////////////gD///4A///8AP//+AB///AAf//wAD//4AA//8AAP//AAD//5AA///wAf//8Af///D////w////8P////n///8="),
+          auto;
+      }
+      img:hover {
+        border: 3px solid rgb(234, 131, 56);
       }
     }
   }
@@ -126,7 +161,7 @@ export default {
     align-items: center;
     height: 75vh;
     width: 100%;
-    border: 2px solid red;
+    // border: 2px solid red;
     .slideShowContainer,
     .detailsCommand {
       width: 50%;
@@ -167,7 +202,7 @@ export default {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          width: 25%;
+          width: 28%;
           padding-bottom: 0;
           margin-bottom: 0;
 
@@ -192,7 +227,7 @@ export default {
           text-decoration: line-through;
           // padding-top:0;
           margin-top: 5px;
-          margin-bottom:30px;
+          margin-bottom: 30px;
         }
         .quantityContainer {
           width: 100%;
@@ -210,11 +245,24 @@ export default {
             .minus,
             .plus {
               color: rgb(234, 131, 56);
+              i {
+                font-weight: bold;
+              }
+            }
+            .minus:hover,
+            .plus:hover {
+              cursor: url("data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAf4AAAPVAAAH1QAAB9WAAA3VgAAd/4AAGbaAAAG2gAABtgAAAYAAAAGAAAABgAAAAYAAAAAAAAA//////////////////////////////////////////////////////////////////////////////////////gD///4A///8AP//+AB///AAf//wAD//4AA//8AAP//AAD//5AA///wAf//8Af///D////w////8P////n///8="),
+                auto;
             }
             .number {
               color: black;
-              font-weight: bold;
+              font-weight: bolder;
             }
+          }
+          .containerAddCart:hover {
+            cursor: url("data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAf4AAAPVAAAH1QAAB9WAAA3VgAAd/4AAGbaAAAG2gAABtgAAAYAAAAGAAAABgAAAAYAAAAAAAAA//////////////////////////////////////////////////////////////////////////////////////gD///4A///8AP//+AB///AAf//wAD//4AA//8AAP//AAD//5AA///wAf//8Af///D////w////8P////n///8="),
+              auto;
+            opacity: 0.7;
           }
           .containerAddCart {
             display: flex;
@@ -226,8 +274,8 @@ export default {
             color: white;
             background-color: rgb(234, 131, 56);
 
-            div{
-              i{
+            div {
+              i {
                 padding-right: 10px;
               }
             }
