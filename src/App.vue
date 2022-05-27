@@ -14,7 +14,7 @@
         </ul>
       </nav>
       <div class="container-avatar">
-        <i class="fa-solid fa-cart-shopping"></i>
+        <i class="fa-solid fa-cart-shopping" @click="ChangeStateOfCart()"></i>
         <!-- <font-awesome-icon icon="fa-cart-shopping" /> -->
         <img src="../src/assets/image-avatar.png" alt="avatar" />
       </div>
@@ -57,6 +57,32 @@
         </div>
       </div>
     </div>
+    <div v-if="displayCart" class="containerCart">
+      <p class="titleCart">Cart</p>
+      <div v-if="!cartIsEmpty" class="emptyCartMsg">
+        <p>Your cart is empty.</p>
+      </div>
+      <div v-else class="detailsCartContainer">
+        <div class="detailsItem">
+          <img
+            src="./assets/image-product-1-thumbnail.jpg"
+            alt=""
+            height="50px"
+            width="50px"
+          />
+          <div>
+            <p class="nameItem">Fall Limited Edition Sneakers</p>
+            <p class="priceCalcul">
+              <span class="priceItem">$125.00 x 3</span>
+
+              <span class="totalAmount">$375.00</span>
+            </p>
+          </div>
+          <span><i class="fa-solid fa-trash-can"></i></span>
+        </div>
+        <button class="btnCheckout">Checkout</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,6 +92,27 @@ export default {
   name: "App",
   components: {
     PreviewSneakers,
+  },
+
+  data() {
+    return {
+      currentItemsCart: [],
+      displayCart: false,
+    };
+  },
+
+  computed:{
+    cartIsEmpty(){
+      return this.currentItemsCart.length>0
+    }
+  },
+
+
+  methods: {
+    ChangeStateOfCart() {
+      if (!this.displayCart) this.displayCart = true;
+      else this.displayCart = false;
+    },
   },
 };
 </script>
@@ -82,6 +129,84 @@ export default {
   flex-direction: column;
   justify-content: center;
   // align-items: center;
+  position: relative;
+  .containerCart {
+    height: 30vh;
+    width: 20vw;
+    // border: 2px solid khaki;
+    position: absolute;
+    top: 9vh;
+    right: 12vw;
+    background-color: white;
+    border-radius: 7px;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1);
+
+    .titleCart {
+      border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+      text-align: left;
+    }
+    .emptyCartMsg {
+      height: 80%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      p {
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.5);
+      }
+    }
+    .detailsCartContainer {
+      padding: 0 7px;
+      button:hover,
+      i:hover {
+        cursor: url("data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAf4AAAPVAAAH1QAAB9WAAA3VgAAd/4AAGbaAAAG2gAABtgAAAYAAAAGAAAABgAAAAYAAAAAAAAA//////////////////////////////////////////////////////////////////////////////////////gD///4A///8AP//+AB///AAf//wAD//4AA//8AAP//AAD//5AA///wAf//8Af///D////w////8P////n///8="),
+          auto;
+      }
+      .detailsItem {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        img {
+          border-radius: 10px;
+        }
+        p {
+          text-align: left;
+          padding-left: 10px;
+          font-size: 0.9vw;
+        }
+
+        .nameItem {
+          margin-bottom: 0;
+        }
+
+        .priceCalcul {
+          display: flex;
+          justify-content: space-evenly;
+          width: 75%;
+          .totalAmount {
+            font-weight: bold;
+          }
+        }
+        i {
+          opacity: 0.5;
+        }
+      }
+      button {
+        font-size: 105%;
+        width: 95%;
+        border-radius: 7px;
+        padding: 0.7em 0;
+        color: white;
+        background-color: rgb(234, 131, 56);
+        border: none;
+        margin-top: 15px;
+      }
+      button:hover {
+        opacity: 0.7;
+      }
+    }
+  }
 
   header {
     display: flex;
@@ -131,13 +256,14 @@ export default {
       display: flex;
       justify-content: end;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-around;
+      width: 10%;
       i {
         color: #2c3e50;
         font-size: 1.5vw;
       }
       img {
-        width: 50%;
+        width: 40%;
         border-radius: 50%;
       }
 
