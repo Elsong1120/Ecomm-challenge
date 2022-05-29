@@ -19,7 +19,6 @@
         <img src="../src/assets/image-avatar.png" alt="avatar" />
       </div>
     </header>
-    <!-- <hr /> -->
 
     <div class="mainContent">
       <div class="slideShowContainer">
@@ -121,7 +120,7 @@ export default {
           quantityChosen: 0,
           orginalPrice: 250,
           discountPrice: 125,
-          urlImgMin: 'image-product-1-thumbnail.jpg',
+          urlImgMin: "image-product-1-thumbnail.jpg",
         },
       ],
       currentItemsCart: [],
@@ -145,6 +144,9 @@ export default {
       if (!this.displayCart) this.displayCart = true;
       else this.displayCart = false;
     },
+    // removeDisplayCart() {
+    //   if (this.displayCart) this.displayCart = false;
+    // },
     increment() {
       this.tabItems[this.currentDispalyItemIndex].quantityChosen++;
     },
@@ -177,7 +179,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  // align-items: center;
+
+  align-items: center;
   position: relative;
   .containerCart {
     height: 30vh;
@@ -326,10 +329,7 @@ export default {
       }
     }
   }
-  hr {
-    width: 90%;
-    color: rgba($color: #000000, $alpha: 0.2);
-  }
+
   .mainContent {
     display: flex;
     justify-content: center;
@@ -339,7 +339,7 @@ export default {
     // border: 2px solid red;
     .slideShowContainer,
     .detailsCommand {
-      width: 50%;
+      width: 40%;
       height: 90%;
     }
     .slideShowContainer {
