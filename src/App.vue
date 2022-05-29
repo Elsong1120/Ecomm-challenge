@@ -43,11 +43,14 @@
 
           <div class="quantityContainer">
             <div class="quantity">
-              <span class="minus"><i class="fa-solid fa-minus"></i></span
-              ><span class="number">0</span
-              ><span class="plus"><i class="fa-solid fa-plus"></i></span>
+              <span class="minus" @click="decrement()"
+                ><i class="fa-solid fa-minus"></i></span
+              ><span class="number">{{ currentQuantityChosen }}</span
+              ><span class="plus" @click="increment()"
+                ><i class="fa-solid fa-plus"></i
+              ></span>
             </div>
-            <div class="containerAddCart">
+            <div class="containerAddCart" @click="addItemsToCart()">
               <div>
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span>Add to cart</span>
@@ -63,22 +66,38 @@
         <p>Your cart is empty.</p>
       </div>
       <div v-else class="detailsCartContainer">
-        <div class="detailsItem">
+        <div
+          class="detailsItem"
+          v-for="(item, index) in currentItemsCart"
+          :key="index"
+        >
           <img
-            src="./assets/image-product-1-thumbnail.jpg"
+            :src="require('@/assets/' + item.urlImgMin)"
             alt=""
             height="50px"
             width="50px"
           />
           <div>
-            <p class="nameItem">Fall Limited Edition Sneakers</p>
+            <p class="nameItem">{{ item.name }}</p>
             <p class="priceCalcul">
-              <span class="priceItem">$125.00 x 3</span>
+              <span class="priceItem"
+                >${{
+                  item.discountPrice ? item.discountPrice : item.originalPrice
+                }}.00 x {{ item.quantityChosen }}</span
+              >
 
-              <span class="totalAmount">$375.00</span>
+              <span class="totalAmount"
+                >${{
+                  item.discountPrice
+                    ? item.discountPrice * item.quantityChosen
+                    : item.originalPrice * item.quantityChosen
+                }}.00</span
+              >
             </p>
           </div>
-          <span><i class="fa-solid fa-trash-can"></i></span>
+          <span @click="removeItemCart(index)"
+            ><i class="fa-solid fa-trash-can"></i
+          ></span>
         </div>
         <button class="btnCheckout">Checkout</button>
       </div>
@@ -96,22 +115,52 @@ export default {
 
   data() {
     return {
+      tabItems: [
+        {
+          name: "Fall Limited Edition Sneakers",
+          quantityChosen: 0,
+          orginalPrice: 250,
+          discountPrice: 125,
+          urlImgMin: 'image-product-1-thumbnail.jpg',
+        },
+      ],
       currentItemsCart: [],
       displayCart: false,
+      currentDispalyItemIndex: 0,
     };
   },
 
-  computed:{
-    cartIsEmpty(){
-      return this.currentItemsCart.length>0
-    }
-  },
+  computed: {
+    cartIsEmpty() {
+      return this.currentItemsCart.length > 0;
+    },
 
+    currentQuantityChosen() {
+      return this.tabItems[this.currentDispalyItemIndex].quantityChosen;
+    },
+  },
 
   methods: {
     ChangeStateOfCart() {
       if (!this.displayCart) this.displayCart = true;
       else this.displayCart = false;
+    },
+    increment() {
+      this.tabItems[this.currentDispalyItemIndex].quantityChosen++;
+    },
+    decrement() {
+      this.tabItems[this.currentDispalyItemIndex].quantityChosen > 1
+        ? this.tabItems[this.currentDispalyItemIndex].quantityChosen--
+        : "";
+    },
+    addItemsToCart() {
+      if (this.tabItems[this.currentDispalyItemIndex].quantityChosen != 0)
+        this.currentItemsCart.push(this.tabItems[this.currentDispalyItemIndex]);
+    },
+
+    removeItemCart(index) {
+      this.currentItemsCart.splice(index, 1);
+      this.tabItems[this.currentDispalyItemIndex].quantityChosen = 0;
     },
   },
 };

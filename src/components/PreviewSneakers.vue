@@ -5,7 +5,7 @@
     </div>
     <div class="imgsMiniature">
       <img
-        v-for="(objImg, index) in tabImg"
+        v-for="(objImg, index) in tabImgThumbnail"
         :src="require('@/assets/' + objImg.url)"
         :alt="'img-product' + index"
         :key="index"
@@ -21,27 +21,33 @@ export default {
   data() {
     return {
       indexImgActive: 0,
-      tabImg: [
+      tabBigImg:["image-product-1.jpg","image-product-2.jpg","image-product-3.jpg","image-product-4.jpg"],
+    
+
+      tabImgThumbnail: [
         { url: "image-product-1-thumbnail.jpg", active: true },
         { url: "image-product-2-thumbnail.jpg", active: false },
         { url: "image-product-3-thumbnail.jpg", active: false },
         { url: "image-product-4-thumbnail.jpg", active: false },
       ],
+      
     };
   },
   methods: {
     getIndexActiveImg(index) {
       this.indexImgActive = index;
-      this.tabImg[index].active = true;
-      for (let i = 0; i < this.tabImg.length; i++) {
-        if (i != index) this.tabImg[i].active = false;
+      this.tabImgThumbnail[index].active = true;
+      for (let i = 0; i < this.tabImgThumbnail.length; i++) {
+        if (i != index) this.tabImgThumbnail[i].active = false;
       }
     },
+
+    
   },
 
   computed: {
     imgActive() {
-      return this.tabImg[this.indexImgActive].url;
+      return this.tabBigImg[this.indexImgActive];
     },
   },
 };
