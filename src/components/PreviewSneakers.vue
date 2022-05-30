@@ -9,21 +9,24 @@
         />
       </div>
       <div class="imgsMiniature">
-        <img
+        <div
           v-for="(objImg, index) in tabImgThumbnail"
-          :src="require('@/assets/' + objImg.url)"
-          :alt="'img-product' + index"
           :key="index"
           @click="getIndexActiveImg(index)"
           :class="{ imgActive: objImg.active }"
-        />
+        >
+          <img
+            :src="require('@/assets/' + objImg.url)"
+            :alt="'img-product' + index"
+          />
+        </div>
       </div>
     </div>
     <div class="modalContainer" v-if="displayModal">
       <div class="BigImgModal">
-        <i class="fa-solid fa-xmark"></i>
-        <i class="fa-solid fa-chevron-left"></i>
-        <i class="fa-solid fa-chevron-right"></i>
+        <i class="fa-solid fa-xmark" @click="hideModal()"></i>
+        <i class="fa-solid fa-chevron-left" @click="slideImgMotion(-1)"></i>
+        <i class="fa-solid fa-chevron-right" @click="slideImgMotion(1)"></i>
         <img :src="require('@/assets/' + imgActive)" alt="Active_img" />
         <div class="imgsMiniature">
           <img
@@ -73,6 +76,20 @@ export default {
     changeStateOfModal() {
       this.displayModal = true;
     },
+
+    hideModal() {
+      this.displayModal = false;
+    },
+
+    slideImgMotion(unit) {
+      if (
+        (unit < 0 && this.indexImgActive >= 1) ||
+        (unit > 0 && this.indexImgActive < this.tabImgThumbnail.length - 1)
+      ) {
+        this.indexImgActive += unit;
+        this.getIndexActiveImg(this.indexImgActive);
+      }
+    },
   },
 
   computed: {
@@ -91,7 +108,7 @@ div {
   }
   .containerShow {
     img {
-      border-radius: 10px;
+      border-radius: 8px;
     }
     .BigImg {
       height: 100%;
@@ -104,18 +121,30 @@ div {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+    div {
+      height: 80px;
+      width: 80px;
+      //   border: 2px solid orange;
+      border-radius: 10px;
 
-    img:hover {
-      opacity: 0.6;
+      img:hover {
+        opacity: 0.8;
+        filter: brightness(1.45);
+      }
+      img {
+        height: 80px;
+        width: 80px;
+        object-fit: cover;
+        padding: 0;
+        mix-blend-mode: luminosity;
+      }
     }
-    img {
-      height: 100px;
-      width: 100px;
-    }
-
     .imgActive {
-      opacity: 0.5;
-      border: 2px solid green;
+      opacity: 0.8;
+      filter: brightness(1.45);
+
+      border: 3px solid green;
+      padding: 0;
     }
   }
   .modalContainer {
@@ -140,16 +169,17 @@ div {
       justify-content: center;
       align-items: center;
       position: relative;
-          .fa-xmark {
-      position: absolute;
-      top: -5%;
-      right: 10%;
-      color: rgb(234, 131, 56);
-      font-weight: bold;
-      font-size: 1.5vw;
-    }
+      .fa-xmark {
+        position: absolute;
+        top: -5%;
+        right: 10%;
+        color: rgb(234, 131, 56);
+        font-weight: bold;
+        font-size: 1.5vw;
+      }
       .fa-chevron-left:hover,
-      .fa-chevron-right:hover,.fa-xmark {
+      .fa-chevron-right:hover,
+      .fa-xmark {
         cursor: url("data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAf4AAAPVAAAH1QAAB9WAAA3VgAAd/4AAGbaAAAG2gAABtgAAAYAAAAGAAAABgAAAAYAAAAAAAAA//////////////////////////////////////////////////////////////////////////////////////gD///4A///8AP//+AB///AAf//wAD//4AA//8AAP//AAD//5AA///wAf//8Af///D////w////8P////n///8="),
           auto;
       }
