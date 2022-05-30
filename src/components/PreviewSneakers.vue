@@ -121,6 +121,7 @@ div {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+    padding: 10px 0;
     div {
       height: 80px;
       width: 80px;
@@ -136,14 +137,17 @@ div {
         width: 80px;
         object-fit: cover;
         padding: 0;
+        margin: 0;
         mix-blend-mode: luminosity;
+        
       }
     }
     .imgActive {
       opacity: 0.8;
       filter: brightness(1.45);
+      background-color:rgb(233, 109, 20) ;
 
-      border: 3px solid green;
+      border: 3px solid rgb(233, 109, 20);
       padding: 0;
     }
   }
@@ -212,7 +216,7 @@ div {
         img {
           height: 80px;
           width: 80px;
-          background-color: black;
+        //   background-color: black;
         }
       }
     }

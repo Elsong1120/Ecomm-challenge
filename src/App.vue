@@ -14,7 +14,11 @@
         </ul>
       </nav>
       <div class="container-avatar">
-        <i class="fa-solid fa-cart-shopping" @click="ChangeStateOfCart()"></i>
+        <i class="fa-solid fa-cart-shopping" @click="ChangeStateOfCart()"
+          ><span v-if="nbItemsCart > 0" class="iconNotification">{{
+            nbItemsCart
+          }}</span></i
+        >
         <!-- <font-awesome-icon icon="fa-cart-shopping" /> -->
         <img src="../src/assets/image-avatar.png" alt="avatar" />
       </div>
@@ -73,8 +77,7 @@
           <img
             :src="require('@/assets/' + item.urlImgMin)"
             alt=""
-            height="50px"
-            width="50px"
+            class="imgCart"
           />
           <div>
             <p class="nameItem">{{ item.name }}</p>
@@ -137,6 +140,10 @@ export default {
     currentQuantityChosen() {
       return this.tabItems[this.currentDispalyItemIndex].quantityChosen;
     },
+
+    nbItemsCart() {
+      return this.currentItemsCart.length;
+    },
   },
 
   methods: {
@@ -183,7 +190,8 @@ export default {
   align-items: center;
   position: relative;
   .containerCart {
-    height: 30vh;
+    height: fit-content;
+    min-height: 30vh;
     width: 20vw;
     // border: 2px solid khaki;
     position: absolute;
@@ -196,16 +204,25 @@ export default {
     .titleCart {
       border-bottom: 1px solid rgba(128, 128, 128, 0.3);
       text-align: left;
+      height: 20%;
     }
     .emptyCartMsg {
       height: 80%;
-      width: 100%;
+      width: 98%;
       display: flex;
       justify-content: center;
       align-items: center;
+      border: solid green;
+
       p {
         font-weight: bold;
         color: rgba(0, 0, 0, 0.5);
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid black;
       }
     }
     .detailsCartContainer {
@@ -219,8 +236,12 @@ export default {
         display: flex;
         justify-content: space-around;
         align-items: center;
+        margin: 0;
+        padding: 0;
         img {
           border-radius: 10px;
+          height: 50px;
+          width: 50px;
         }
         p {
           text-align: left;
@@ -313,6 +334,17 @@ export default {
       i {
         color: #2c3e50;
         font-size: 1.5vw;
+        position: relative;
+        span {
+          position: absolute;
+          top: -50%;
+          right: -10%;
+          background-color: rgb(234, 131, 56);
+          font-size: 5px;
+          border-radius: 50%;
+          padding: 1em 1.2em;
+          color: white;
+        }
       }
       img {
         width: 40%;
