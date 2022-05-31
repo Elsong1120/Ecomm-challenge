@@ -1,6 +1,9 @@
 <template>
   <div id="App">
     <header>
+      <div class="responsiveBar">
+        <i class="fa-solid fa-bars"></i>
+      </div>
       <div class="logo">
         <span>sneakers</span>
       </div>
@@ -183,10 +186,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  margin-bottom: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
+  border: solid orange;
   align-items: center;
   position: relative;
   .containerCart {
@@ -207,22 +212,19 @@ export default {
       height: 20%;
     }
     .emptyCartMsg {
-      height: 80%;
+      min-height: 20vh;
       width: 98%;
       display: flex;
       justify-content: center;
       align-items: center;
-      border: solid green;
+      // border: solid green;
 
       p {
         font-weight: bold;
         color: rgba(0, 0, 0, 0.5);
         height: 100%;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: solid black;
+
       }
     }
     .detailsCartContainer {
@@ -284,20 +286,33 @@ export default {
   header {
     display: flex;
     justify-content: space-between;
-    width: 80%;
+    align-items: center;
+    margin: 0 auto;
+    width: 90%;
     height: 10vh;
+    // border: solid ;
     border-bottom: 1px solid rgba($color: #000000, $alpha: 0.2);
     .logo {
+      display: inline-flex;
+      // display: flex;
+      // align-items: center;
       font-size: 30px;
       font-weight: bold;
       margin-left: 15px;
-      width: 20%;
+      // height: 100%;
+      width: 15%;
       text-align: left;
+      // padding: 0;
+      // span{
+      //   padding: 0;
+      //   margin: 0;
+      // }
     }
     nav {
-      width: 60%;
+      width: 75%;
       display: flex;
       align-items: flex-start;
+
       .nav-list {
         width: 60%;
         height: 80%;
@@ -329,7 +344,7 @@ export default {
       display: flex;
       justify-content: end;
       align-items: center;
-      justify-content: space-around;
+
       width: 10%;
       i {
         color: #2c3e50;
@@ -349,6 +364,7 @@ export default {
       img {
         width: 40%;
         border-radius: 50%;
+        margin-left: 40px;
       }
 
       i:hover,
@@ -375,7 +391,7 @@ export default {
       height: 90%;
     }
     .slideShowContainer {
-      border: 2px solid green;
+      // border: 2px solid green;
     }
     .detailsCommand {
       border: 2px solid yellow;
@@ -492,4 +508,6 @@ export default {
     }
   }
 }
+
+
 </style>

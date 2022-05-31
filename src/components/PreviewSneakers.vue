@@ -2,6 +2,8 @@
   <div>
     <div class="containerShow">
       <div class="BigImg">
+        <i class="fa-solid fa-chevron-left" @click="slideImgMotion(-1)"></i>
+        <i class="fa-solid fa-chevron-right" @click="slideImgMotion(1)"></i>
         <img
           :src="require('@/assets/' + imgActive)"
           alt="Active_img"
@@ -113,7 +115,7 @@ div {
     .BigImg {
       height: 100%;
       img {
-        height: 50vh;
+        height: 40vw;
       }
     }
   }
@@ -123,8 +125,10 @@ div {
     width: 100%;
     padding: 10px 0;
     div {
-      height: 80px;
-      width: 80px;
+      min-height: 70px;
+      min-width: 70px;
+      height: 7vw;
+      width: 7vw;
       //   border: 2px solid orange;
       border-radius: 10px;
 
@@ -133,19 +137,20 @@ div {
         filter: brightness(1.45);
       }
       img {
-        height: 80px;
-        width: 80px;
+        min-height: 70px;
+        min-width: 70px;
+        height: 7vw;
+        width: 7vw;
         object-fit: cover;
         padding: 0;
         margin: 0;
         mix-blend-mode: luminosity;
-        
       }
     }
     .imgActive {
       opacity: 0.8;
       filter: brightness(1.45);
-      background-color:rgb(233, 109, 20) ;
+      background-color: rgb(233, 109, 20);
 
       border: 3px solid rgb(233, 109, 20);
       padding: 0;
@@ -216,8 +221,112 @@ div {
         img {
           height: 80px;
           width: 80px;
-        //   background-color: black;
+          //   background-color: black;
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 731px) {
+  #app {
+      height: 95vh;
+      width: 95vw;
+      overflow-x:hidden ;
+    header {
+      justify-content: flex-start !important;
+      .responsiveBar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20%;
+        i {
+          font-size: 5vw;
+          font-weight: bolder !important;
+        }
+      }
+      nav {
+        // visibility: hidden;
+        display: none !important;
+      }
+      .logo {
+        // border: solid red;
+        width: fit-content !important;
+        font-size: 8vw !important;
+      }
+
+      .container-avatar {
+        width: 100% !important;
+        i {
+          font-size: 5.5vw !important;
+        }
+        img {
+          width: 9vw !important;
+        }
+      }
+    }
+    .mainContent {
+      flex-direction: column;
+    //   border: solid blue;
+
+      .slideShowContainer {
+        // border: solid green;
+        width: 95vw !important;
+
+        .containerShow {
+          display: flex;
+          justify-content: center;
+          .BigImg {
+            // border: solid red;
+            width: 60%;
+            margin-top: 30px;
+            position: relative;
+            img {
+              width: 100%;
+            }
+            i {
+              position: absolute;
+              top: 40%;
+              background-color: white;
+              padding: 0.8em;
+              font-size: 3vw;
+              border-radius: 50%;
+              font-weight: bolder;
+            }
+            .fa-chevron-left {
+              left: 5%;
+            }
+            .fa-chevron-right {
+              right: 5%;
+            }
+          }
+          .imgsMiniature {
+            display: none;
+          }
+        }
+      }
+      .detailsCommand{
+          border: solid green;
+          height: 100% !important;
+          width: 90% !important;
+          align-items: flex-start !important;
+          padding: 20px !important;
+          .detailsMainContainer{
+        height: 95% !important;
+        width: 95% !important;
+              .nameCompany{
+                  font-size: 3vw !important;
+              }
+              h2{
+                  font-size: 5vw !important;
+              }
+              .descriptionSneakers{
+                  font-size: 3vw !important;
+              }
+              .containerPrice{
+
+              }
+          }
       }
     }
   }
