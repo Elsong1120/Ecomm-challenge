@@ -114,8 +114,14 @@ div {
     }
     .BigImg {
       height: 100%;
+
+      .fa-chevron-left,
+      .fa-chevron-right {
+        display: none;
+      }
       img {
-        height: 40vw;
+        height: 50vh;
+        width: 80%;
       }
     }
   }
@@ -170,7 +176,7 @@ div {
     overflow: hidden;
 
     .BigImgModal {
-      border: 2px solid red;
+      //   border: 2px solid red;
       height: 80%;
       width: 45%;
       display: flex;
@@ -230,19 +236,115 @@ div {
 
 @media (max-width: 731px) {
   #app {
-      height: 95vh;
-      width: 95vw;
-      overflow-x:hidden ;
+    height: 95vh;
+    width: 95vw;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    .responsiveSideBar,
+    .bg-black_SideBar {
+      display: initial !important;
+    }
+
+    .bg-black_SideBar {
+      background-color: rgba(0, 0, 0, 0.7);
+      height: 98vh;
+      width: 98vw;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      .sideBar {
+        height: 100%;
+        width: 70vw;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        background-color: white;
+        z-index: 2;
+        //   border: solid red;
+        i {
+          font-size: 6vw;
+          font-weight: bold;
+          padding-bottom: 50px;
+          // position: absolute;
+          // top:2vh;
+          // left: 10px;
+        }
+        i:hover {
+          cursor: url("data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAf4AAAPVAAAH1QAAB9WAAA3VgAAd/4AAGbaAAAG2gAABtgAAAYAAAAGAAAABgAAAAYAAAAAAAAA//////////////////////////////////////////////////////////////////////////////////////gD///4A///8AP//+AB///AAf//wAD//4AA//8AAP//AAD//5AA///wAf//8Af///D////w////8P////n///8="),
+            auto;
+        }
+        ul {
+          //   border: solid green;
+          display: flex;
+          flex-direction: column;
+          list-style-type: none;
+          justify-content: flex-start;
+          align-items: start;
+          //   margin-top: 70px;
+          li {
+            margin: 10px 0;
+            font-weight: bold;
+            font-size: 4vw;
+          }
+        }
+      }
+    }
+    .containerCart {
+      height: fit-content;
+      min-height: 30vh;
+      width: 50vw !important;
+      top: 15vh !important;
+      right: 12vw;
+      .titleCart {
+        padding-left: 10px;
+      }
+      .titleCart,
+      .emptyCartMsg {
+        font-size: 3.5vw;
+      }
+
+      .detailsCartContainer {
+        .detailsItem {
+          img {
+            min-height: 100px;
+            min-width: 100px;
+            height: 2.5vw !important ;
+            width: 2.5vw !important ;
+          }
+          p {
+          }
+
+          .nameItem,
+          .priceCalcul {
+            font-size: 3vw !important;
+          }
+          i {
+            font-size: 4vw !important;
+          }
+        }
+        button {
+          margin-bottom: 20px !important;
+          font-size: 3.5vw !important;
+        }
+      }
+    }
     header {
       justify-content: flex-start !important;
-      .responsiveBar {
-        display: flex;
+      margin-bottom: 15vh !important;
+      .responsiveSideBar {
+        display: flex !important;
         justify-content: center;
         align-items: center;
         width: 20%;
         i {
           font-size: 5vw;
           font-weight: bolder !important;
+        }
+        i:hover {
+          cursor: url("data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAf4AAAPVAAAH1QAAB9WAAA3VgAAd/4AAGbaAAAG2gAABtgAAAYAAAAGAAAABgAAAAYAAAAAAAAA//////////////////////////////////////////////////////////////////////////////////////gD///4A///8AP//+AB///AAf//wAD//4AA//8AAP//AAD//5AA///wAf//8Af///D////w////8P////n///8="),
+            auto;
         }
       }
       nav {
@@ -259,6 +361,9 @@ div {
         width: 100% !important;
         i {
           font-size: 5.5vw !important;
+          .iconNotification {
+            font-size: 1.5vw !important;
+          }
         }
         img {
           width: 9vw !important;
@@ -267,7 +372,7 @@ div {
     }
     .mainContent {
       flex-direction: column;
-    //   border: solid blue;
+      //   border: solid blue;
 
       .slideShowContainer {
         // border: solid green;
@@ -276,15 +381,19 @@ div {
         .containerShow {
           display: flex;
           justify-content: center;
+          //   border: solid gray;
+          height: 40vh;
           .BigImg {
             // border: solid red;
             width: 60%;
-            margin-top: 30px;
+            // margin-top: 30px;
             position: relative;
             img {
               width: 100%;
+              height: 100% !important;
             }
             i {
+              display: initial;
               position: absolute;
               top: 40%;
               background-color: white;
@@ -305,30 +414,70 @@ div {
           }
         }
       }
-      .detailsCommand{
-          border: solid green;
-          height: 100% !important;
-          width: 90% !important;
-          align-items: flex-start !important;
-          padding: 20px !important;
-          .detailsMainContainer{
-        height: 95% !important;
-        width: 95% !important;
-              .nameCompany{
-                  font-size: 3vw !important;
-              }
-              h2{
-                  font-size: 5vw !important;
-              }
-              .descriptionSneakers{
-                  font-size: 3vw !important;
-              }
-              .containerPrice{
-
-              }
+      .detailsCommand {
+        // border: solid green;
+        height: 100% !important;
+        width: 90% !important;
+        align-items: flex-start !important;
+        padding: 20px !important;
+        .detailsMainContainer {
+          height: 95% !important;
+          width: 95% !important;
+          .nameCompany {
+            font-size: 3vw !important;
           }
+          h2 {
+            font-size: 5vw !important;
+          }
+          .descriptionSneakers {
+            font-size: 3vw !important;
+          }
+          .containerPrice {
+            .price,
+            .discount {
+              font-size: 3vw !important;
+            }
+          }
+          .originalPrice {
+            font-size: 2.5vw !important;
+          }
+          .quantityContainer {
+            .quantity {
+              display: flex;
+              justify-content: space-evenly;
+              width: 35%;
+              background-color: rgb(247, 248, 258);
+              border-radius: 5px;
+              padding: 0.6em;
+              border-radius: 7px;
+              .minus,
+              .plus {
+                color: rgb(234, 131, 56);
+                i {
+                  font-size: 3.5vw !important            ;
+                }
+              }
+
+              .number {
+                font-size: 3.5vw !important;
+              }
+            }
+
+            .containerAddCart {
+              div {
+                font-size: 3.5vw;
+                i {
+                  padding-right: 10px;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
+}
+#app::-webkit-scrollbar {
+  display: none;
 }
 </style>

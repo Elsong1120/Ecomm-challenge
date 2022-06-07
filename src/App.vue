@@ -1,11 +1,23 @@
 <template>
   <div id="App">
     <header>
-      <div class="responsiveBar">
+      <div class="responsiveSideBar" @click="changeStateModal()">
         <i class="fa-solid fa-bars"></i>
       </div>
       <div class="logo">
         <span>sneakers</span>
+      </div>
+      <div class="bg-black_SideBar" v-if="displayModal">
+        <div class="sideBar">
+          <ul>
+            <i class="fa-solid fa-xmark" @click="changeStateModal()"></i>
+            <li>Collections</li>
+            <li>Men</li>
+            <li>Women</li>
+            <li>About</li>
+            <li>Contact</li>
+          </ul>
+        </div>
       </div>
       <nav>
         <ul class="nav-list">
@@ -132,6 +144,7 @@ export default {
       currentItemsCart: [],
       displayCart: false,
       currentDispalyItemIndex: 0,
+      displayModal: false,
     };
   },
 
@@ -174,6 +187,14 @@ export default {
       this.currentItemsCart.splice(index, 1);
       this.tabItems[this.currentDispalyItemIndex].quantityChosen = 0;
     },
+
+    changeStateModal() {
+      if (this.displayModal) {
+        this.displayModal = false;
+      } else {
+        this.displayModal = true;
+      }
+    },
   },
 };
 </script>
@@ -191,9 +212,13 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: solid orange;
+  // border: solid orange;
   align-items: center;
   position: relative;
+  .responsiveSideBar,
+  .bg-black_SideBar {
+    display: none;
+  }
   .containerCart {
     height: fit-content;
     min-height: 30vh;
@@ -223,8 +248,6 @@ export default {
         font-weight: bold;
         color: rgba(0, 0, 0, 0.5);
         height: 100%;
-
-
       }
     }
     .detailsCartContainer {
@@ -311,16 +334,22 @@ export default {
     nav {
       width: 75%;
       display: flex;
-      align-items: flex-start;
+      // align-items: flex-start;
+      // border: solid green;
+      height: 100%;
 
       .nav-list {
         width: 60%;
-        height: 80%;
-
+        height: 100%;
+        margin: 0;
         list-style-type: none;
         display: flex;
         justify-content: space-evenly;
+        // border: solid khaki;
+
         li {
+          display: flex;
+          align-items: center;
           opacity: 0.7;
           position: relative;
           height: 100%;
@@ -388,22 +417,25 @@ export default {
     .slideShowContainer,
     .detailsCommand {
       width: 40%;
-      height: 90%;
     }
     .slideShowContainer {
+      height: 70vh;
+
       // border: 2px solid green;
     }
     .detailsCommand {
-      border: 2px solid yellow;
+      height: 57vh;
+
+      // border: 2px solid yellow;
       padding: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
 
       .detailsMainContainer {
-        border: 2px solid blue;
-        height: 80%;
-        width: 75%;
+        // border: 2px solid blue;
+        height: 95%;
+        width: 80%;
         text-align: left;
 
         .nameCompany {
@@ -425,7 +457,7 @@ export default {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          width: 28%;
+          width: 32%;
           padding-bottom: 0;
           margin-bottom: 0;
 
@@ -492,10 +524,10 @@ export default {
             justify-content: center;
             align-items: center;
             border-radius: 7px;
-
-            width: 50%;
+            width: 55%;
             color: white;
             background-color: rgb(234, 131, 56);
+            padding: 0.6em 0;
 
             div {
               i {
@@ -508,6 +540,4 @@ export default {
     }
   }
 }
-
-
 </style>
