@@ -313,8 +313,6 @@ div {
             height: 2.5vw !important ;
             width: 2.5vw !important ;
           }
-          p {
-          }
 
           .nameItem,
           .priceCalcul {
@@ -333,6 +331,7 @@ div {
     header {
       justify-content: flex-start !important;
       margin-bottom: 15vh !important;
+      margin-top: 10vh !important;
       .responsiveSideBar {
         display: flex !important;
         justify-content: center;
@@ -408,10 +407,18 @@ div {
             .fa-chevron-right {
               right: 5%;
             }
+            .fa-chevron-left,
+            .fa-chevron-right:hover {
+              cursor: url("data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAf4AAAPVAAAH1QAAB9WAAA3VgAAd/4AAGbaAAAG2gAABtgAAAYAAAAGAAAABgAAAAYAAAAAAAAA//////////////////////////////////////////////////////////////////////////////////////gD///4A///8AP//+AB///AAf//wAD//4AA//8AAP//AAD//5AA///wAf//8Af///D////w////8P////n///8="),
+                auto;
+            }
           }
           .imgsMiniature {
             display: none;
           }
+        }
+        .modalContainer {
+          display: none !important;
         }
       }
       .detailsCommand {
@@ -479,5 +486,37 @@ div {
 }
 #app::-webkit-scrollbar {
   display: none;
+}
+
+@media (max-width: 471px) {
+  #app {
+    .mainContent {
+      .slideShowContainer {
+        .BigImg {
+          border: solid yellow;
+          margin: 0 auto !important;
+          width: 95% !important;
+        }
+      }
+      .detailsCommand {
+        .detailsMainContainer {
+          .quantityContainer,
+          .containerAddCart {
+            padding: 1.5em 0 !important;
+          }
+          .quantityContainer {
+            flex-direction: column;
+            .quantity {
+              width: 95% !important;
+            }
+          }
+          .containerAddCart {
+            width: 100% !important;
+            margin-top:15px;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
