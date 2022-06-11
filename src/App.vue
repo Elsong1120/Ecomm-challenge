@@ -141,6 +141,7 @@ export default {
           urlImgMin: "image-product-1-thumbnail.jpg",
         },
       ],
+      currentQuantityChosen: 0,
       currentItemsCart: [],
       displayCart: false,
       currentDispalyItemIndex: 0,
@@ -150,10 +151,6 @@ export default {
   computed: {
     cartIsEmpty() {
       return this.currentItemsCart.length > 0;
-    },
-
-    currentQuantityChosen() {
-      return this.tabItems[this.currentDispalyItemIndex].quantityChosen;
     },
 
     nbItemsCart() {
@@ -166,19 +163,22 @@ export default {
       if (!this.displayCart) this.displayCart = true;
       else this.displayCart = false;
     },
-    // removeDisplayCart() {
-    //   if (this.displayCart) this.displayCart = false;
-    // },
+
     increment() {
-      this.tabItems[this.currentDispalyItemIndex].quantityChosen++;
+      this.currentQuantityChosen++;
     },
     decrement() {
-      this.tabItems[this.currentDispalyItemIndex].quantityChosen > 1
-        ? this.tabItems[this.currentDispalyItemIndex].quantityChosen--
-        : "";
+      this.currentQuantityChosen > 1 ? this.currentQuantityChosen-- : "";
     },
     addItemsToCart() {
-      if (this.tabItems[this.currentDispalyItemIndex].quantityChosen != 0)
+      if (this.currentQuantityChosen != 0)
+        this.tabItems[this.currentDispalyItemIndex].quantityChosen =
+          this.currentQuantityChosen;
+      if (
+        !this.currentItemsCart.includes(
+          this.tabItems[this.currentDispalyItemIndex]
+        )
+      )
         this.currentItemsCart.push(this.tabItems[this.currentDispalyItemIndex]);
     },
 

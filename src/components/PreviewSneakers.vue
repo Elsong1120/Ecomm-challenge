@@ -94,7 +94,6 @@ export default {
           if (i != index) this.tabImgThumbnail[i].active = false;
         }
       } else {
-        // this.modalImgs.indexImgActiveModal = index;
         this.modalImgs.tabImgThumbnail[index].active = true;
         this.modalImgs.indexImgActiveModal = index;
         for (let i = 0; i < this.modalImgs.tabImgThumbnail.length; i++) {
