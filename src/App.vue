@@ -1,16 +1,20 @@
 <template>
   <div id="App">
     <header>
-      <div class="responsiveSideBar" @click="changeStateModal()">
+      <div class="responsiveSideBar" @click="ChangeStateElement('sideBar')">
         <i class="fa-solid fa-bars"></i>
       </div>
       <div class="logo">
         <span>sneakers</span>
       </div>
-      <div class="bg-black_SideBar" v-if="displayModal">
+
+      <div class="bg-black_SideBar" v-if="displaySideBar">
         <div class="sideBar">
           <ul>
-            <i class="fa-solid fa-xmark" @click="changeStateModal()"></i>
+            <i
+              class="fa-solid fa-xmark"
+              @click="ChangeStateElement('sideBar')"
+            ></i>
             <li>Collections</li>
             <li>Men</li>
             <li>Women</li>
@@ -29,7 +33,7 @@
         </ul>
       </nav>
       <div class="container-avatar">
-        <i class="fa-solid fa-cart-shopping" @click="ChangeStateOfCart()"
+        <i class="fa-solid fa-cart-shopping" @click="ChangeStateElement('cart')"
           ><span v-if="nbItemsCart > 0" class="iconNotification">{{
             nbItemsCart
           }}</span></i
@@ -144,6 +148,7 @@ export default {
       currentQuantityChosen: 0,
       currentItemsCart: [],
       displayCart: false,
+      displaySideBar: false,
       currentDispalyItemIndex: 0,
     };
   },
@@ -159,16 +164,13 @@ export default {
   },
 
   methods: {
-    ChangeStateOfCart() {
-      if (!this.displayCart) this.displayCart = true;
-      else this.displayCart = false;
-    },
+
 
     increment() {
       this.currentQuantityChosen++;
     },
     decrement() {
-      this.currentQuantityChosen > 1 ? this.currentQuantityChosen-- : "";
+      this.currentQuantityChosen >= 1 ? this.currentQuantityChosen-- : "";
     },
     addItemsToCart() {
       if (this.currentQuantityChosen != 0)
@@ -187,11 +189,20 @@ export default {
       this.tabItems[this.currentDispalyItemIndex].quantityChosen = 0;
     },
 
-    changeStateModal() {
-      if (this.displayModal) {
-        this.displayModal = false;
-      } else {
-        this.displayModal = true;
+
+
+
+    ChangeStateElement(nameItem) {
+      switch (nameItem) {
+        case "cart":
+          this.displayCart = !this.displayCart;
+          break;
+        case "sideBar":
+          this.displaySideBar = !this.displaySideBar;
+          break;
+
+        default:
+          "";
       }
     },
   },
