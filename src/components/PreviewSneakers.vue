@@ -14,7 +14,7 @@
         <div
           v-for="(objImg, index) in tabImgThumbnail"
           :key="index"
-          @click="getIndexActiveImg(index)"
+          @click="UpdateActiveImg(index)"
           :class="{ imgActive: objImg.active }"
         >
           <img
@@ -29,14 +29,14 @@
         <i class="fa-solid fa-xmark" @click="hideModal()"></i>
         <i class="fa-solid fa-chevron-left" @click="slideImgMotion(-1)"></i>
         <i class="fa-solid fa-chevron-right" @click="slideImgMotion(1)"></i>
-        <img :src="require('@/assets/' + imgActive)" alt="Active_img" />
+        <img :src="require('@/assets/' + imgActiveModal)" alt="Active_img" />
         <div class="imgsMiniature">
           <img
-            v-for="(objImg, index) in tabImgThumbnail"
+            v-for="(objImg, index) in modalImgs.tabImgThumbnail"
             :src="require('@/assets/' + objImg.url)"
             :alt="'img-product' + index"
             :key="index"
-            @click="getIndexActiveImg(index)"
+            @click="UpdateActiveImg(index)"
             :class="{ imgActive: objImg.active }"
           />
         </div>
@@ -50,6 +50,7 @@ export default {
   data() {
     return {
       indexImgActive: 0,
+
       tabBigImg: [
         "image-product-1.jpg",
         "image-product-2.jpg",
@@ -64,15 +65,41 @@ export default {
         { url: "image-product-4-thumbnail.jpg", active: false },
       ],
 
+      modalImgs: {
+        indexImgActiveModal: 0,
+        tabBigImg: [
+          "image-product-1.jpg",
+          "image-product-2.jpg",
+          "image-product-3.jpg",
+          "image-product-4.jpg",
+        ],
+
+        tabImgThumbnail: [
+          { url: "image-product-1-thumbnail.jpg", active: true },
+          { url: "image-product-2-thumbnail.jpg", active: false },
+          { url: "image-product-3-thumbnail.jpg", active: false },
+          { url: "image-product-4-thumbnail.jpg", active: false },
+        ],
+      },
+
       displayModal: false,
     };
   },
   methods: {
-    getIndexActiveImg(index) {
-      this.indexImgActive = index;
-      this.tabImgThumbnail[index].active = true;
-      for (let i = 0; i < this.tabImgThumbnail.length; i++) {
-        if (i != index) this.tabImgThumbnail[i].active = false;
+    UpdateActiveImg(index) {
+      if (!this.displayModal) {
+        this.tabImgThumbnail[index].active = true;
+        this.indexImgActive = index;
+        for (let i = 0; i < this.tabImgThumbnail.length; i++) {
+          if (i != index) this.tabImgThumbnail[i].active = false;
+        }
+      } else {
+        // this.modalImgs.indexImgActiveModal = index;
+        this.modalImgs.tabImgThumbnail[index].active = true;
+        this.modalImgs.indexImgActiveModal = index;
+        for (let i = 0; i < this.modalImgs.tabImgThumbnail.length; i++) {
+          if (i != index) this.modalImgs.tabImgThumbnail[i].active = false;
+        }
       }
     },
     changeStateOfModal() {
@@ -85,11 +112,21 @@ export default {
 
     slideImgMotion(unit) {
       if (
-        (unit < 0 && this.indexImgActive >= 1) ||
+        (!this.displayModal && unit < 0 && this.indexImgActive >= 1) ||
         (unit > 0 && this.indexImgActive < this.tabImgThumbnail.length - 1)
       ) {
         this.indexImgActive += unit;
-        this.getIndexActiveImg(this.indexImgActive);
+        this.UpdateActiveImg(this.indexImgActive);
+      } else if (
+        (this.displayModal &&
+          unit < 0 &&
+          this.modalImgs.indexImgActiveModal >= 1) ||
+        (unit > 0 &&
+          this.modalImgs.indexImgActiveModal <
+            this.modalImgs.tabImgThumbnail.length - 1)
+      ) {
+        this.modalImgs.indexImgActiveModal += unit;
+        this.UpdateActiveImg(this.modalImgs.indexImgActiveModal);
       }
     },
   },
@@ -97,6 +134,9 @@ export default {
   computed: {
     imgActive() {
       return this.tabBigImg[this.indexImgActive];
+    },
+    imgActiveModal() {
+      return this.modalImgs.tabBigImg[this.modalImgs.indexImgActiveModal];
     },
   },
 };
@@ -512,7 +552,7 @@ div {
           }
           .containerAddCart {
             width: 100% !important;
-            margin-top:15px;
+            margin-top: 15px;
           }
         }
       }

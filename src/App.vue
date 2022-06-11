@@ -144,7 +144,6 @@ export default {
       currentItemsCart: [],
       displayCart: false,
       currentDispalyItemIndex: 0,
-      displayModal: false,
     };
   },
 
