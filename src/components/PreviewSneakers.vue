@@ -46,6 +46,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -85,6 +86,16 @@ export default {
       displayModal: false,
     };
   },
+  computed: {
+
+    imgActive() {
+      return this.tabBigImg[this.indexImgActive];
+    },
+    imgActiveModal() {
+      return this.modalImgs.tabBigImg[this.modalImgs.indexImgActiveModal];
+    },
+  },
+
   methods: {
     UpdateActiveImg(index) {
       if (!this.displayModal) {
@@ -130,14 +141,7 @@ export default {
     },
   },
 
-  computed: {
-    imgActive() {
-      return this.tabBigImg[this.indexImgActive];
-    },
-    imgActiveModal() {
-      return this.modalImgs.tabBigImg[this.modalImgs.indexImgActiveModal];
-    },
-  },
+
 };
 </script>
 

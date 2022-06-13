@@ -8,7 +8,7 @@
         <span>sneakers</span>
       </div>
 
-      <div class="bg-black_SideBar" v-if="displaySideBar">
+      <div class="bg-black_SideBar" v-if="storeCounter.displaySideBar">
         <div class="sideBar">
           <ul>
             <i
@@ -67,7 +67,9 @@
             <div class="quantity">
               <span class="minus" @click="decrement()"
                 ><i class="fa-solid fa-minus"></i></span
-              ><span class="number">{{ currentQuantityChosen }}</span
+              ><span class="number">{{
+                storeCounter.currentQuantityChosen
+              }}</span
               ><span class="plus" @click="increment()"
                 ><i class="fa-solid fa-plus"></i
               ></span>
@@ -82,7 +84,7 @@
         </div>
       </div>
     </div>
-    <div v-if="displayCart" class="containerCart">
+    <div v-if="storeCounter.displayCart" class="containerCart">
       <p class="titleCart">Cart</p>
       <div v-if="!cartIsEmpty" class="emptyCartMsg">
         <p>Your cart is empty.</p>
@@ -90,7 +92,7 @@
       <div v-else class="detailsCartContainer">
         <div
           class="detailsItem"
-          v-for="(item, index) in currentItemsCart"
+          v-for="(item, index) in storeCounter.currentItemsCart"
           :key="index"
         >
           <img
@@ -128,6 +130,10 @@
 
 <script>
 import PreviewSneakers from "./components/PreviewSneakers.vue";
+import { useCounterStore } from "@/store/counter";
+
+const storeCounter = useCounterStore();
+
 export default {
   name: "App",
   components: {
@@ -136,69 +142,71 @@ export default {
 
   data() {
     return {
-      tabItems: [
-        {
-          name: "Fall Limited Edition Sneakers",
-          quantityChosen: 0,
-          orginalPrice: 250,
-          discountPrice: 125,
-          urlImgMin: "image-product-1-thumbnail.jpg",
-        },
-      ],
-      currentQuantityChosen: 0,
-      currentItemsCart: [],
-      displayCart: false,
-      displaySideBar: false,
-      currentDispalyItemIndex: 0,
+      // tabItems: [
+      //   {
+      //     name: "Fall Limited Edition Sneakers",
+      //     quantityChosen: 0,
+      //     orginalPrice: 250,
+      //     discountPrice: 125,
+      //     urlImgMin: "image-product-1-thumbnail.jpg",
+      //   },
+      // ],
+      // currentQuantityChosen: 0,
+      // currentItemsCart: [],
+      // displayCart: false,
+      // displaySideBar: false,
+      // currentDispalyItemIndex: 0,
     };
   },
 
   computed: {
     cartIsEmpty() {
-      return this.currentItemsCart.length > 0;
+      return storeCounter.currentItemsCart.length > 0;
     },
 
     nbItemsCart() {
-      return this.currentItemsCart.length;
+      return storeCounter.currentItemsCart.length;
     },
   },
 
   methods: {
-
-
     increment() {
-      this.currentQuantityChosen++;
+      storeCounter.currentQuantityChosen++;
     },
     decrement() {
-      this.currentQuantityChosen >= 1 ? this.currentQuantityChosen-- : "";
+      storeCounter.currentQuantityChosen >= 1
+        ? storeCounter.currentQuantityChosen--
+        : "";
     },
     addItemsToCart() {
-      if (this.currentQuantityChosen != 0)
-        this.tabItems[this.currentDispalyItemIndex].quantityChosen =
-          this.currentQuantityChosen;
+      if (storeCounter.currentQuantityChosen != 0)
+        storeCounter.tabItems[
+          storeCounter.currentDispalyItemIndex
+        ].quantityChosen = storeCounter.currentQuantityChosen;
       if (
-        !this.currentItemsCart.includes(
-          this.tabItems[this.currentDispalyItemIndex]
+        !storeCounter.currentItemsCart.includes(
+          storeCounter.tabItems[storeCounter.currentDispalyItemIndex]
         )
       )
-        this.currentItemsCart.push(this.tabItems[this.currentDispalyItemIndex]);
+        storeCounter.currentItemsCart.push(
+          storeCounter.tabItems[storeCounter.currentDispalyItemIndex]
+        );
     },
 
     removeItemCart(index) {
-      this.currentItemsCart.splice(index, 1);
-      this.tabItems[this.currentDispalyItemIndex].quantityChosen = 0;
+      storeCounter.currentItemsCart.splice(index, 1);
+      storeCounter.tabItems[
+        storeCounter.currentDispalyItemIndex
+      ].quantityChosen = 0;
     },
-
-
-
 
     ChangeStateElement(nameItem) {
       switch (nameItem) {
         case "cart":
-          this.displayCart = !this.displayCart;
+          storeCounter.displayCart = !storeCounter.displayCart;
           break;
         case "sideBar":
-          this.displaySideBar = !this.displaySideBar;
+          storeCounter.displaySideBar = !storeCounter.displaySideBar;
           break;
 
         default:
