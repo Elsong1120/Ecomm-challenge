@@ -6,8 +6,8 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { createPinia } from "pinia";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(faCartShopping);
-
+const pinia = createPinia();
 createApp(App)
-  .use(createPinia())
+  .use(pinia)
   .component("font-awesome-icon", FontAwesomeIcon)
   .mount("#app");

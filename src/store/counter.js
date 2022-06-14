@@ -52,6 +52,8 @@ export const useCounterStore = defineStore({
 
     displayModal: false,
   }),
-  getters: {},
-  actions: {},
+ 
+  actions: {
+    // const storeCounter = useCounterStore()
+  },
 });

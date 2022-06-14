@@ -128,11 +128,12 @@
   </div>
 </template>
 
-<script>
+<script >
 import PreviewSneakers from "./components/PreviewSneakers.vue";
-import { useCounterStore } from "@/store/counter";
+import { useCounterStore } from "../src/store/counter";
 
-const storeCounter = useCounterStore();
+     const storeCounter = useCounterStore()
+
 
 export default {
   name: "App",
