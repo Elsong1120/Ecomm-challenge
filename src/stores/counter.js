@@ -57,5 +57,5 @@ export const useCounterStore = defineStore({
   actions: {
     // const storeCounter = useCounterStore()
   },
-},{persist:true});
+});
 

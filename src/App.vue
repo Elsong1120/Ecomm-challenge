@@ -11,7 +11,6 @@ const nbItemsCart = computed(()=>storeCounter.currentItemsCart.length);
 const getImageUrl = (name) => {
   return new URL(`./assets/${name}`, import.meta.url).href;
 };
-// return { carouselData, getImageUrl }
 const increment = () => {
   storeCounter.currentQuantityChosen++;
 };
