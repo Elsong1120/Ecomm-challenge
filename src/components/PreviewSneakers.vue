@@ -1,3 +1,55 @@
+<script setup>
+import { useCounterStore } from "../stores/counter";
+import {computed} from 'vue'
+const storeCounter = useCounterStore();
+
+const imgActive =computed(()=>storeCounter.tabBigImg[storeCounter.indexImgActive]) 
+
+const imgActiveModal = computed(()=>storeCounter.modalImgs.tabBigImg[storeCounter.modalImgs.indexImgActiveModal])
+const getImageUrl = (name) => {
+  return new URL(`../assets/${name}`, import.meta.url).href;
+};
+const UpdateActiveImg = (index) => {
+  if (!storeCounter.displayModal) {
+    storeCounter.tabImgThumbnail[index].active = true;
+    storeCounter.indexImgActive = index;
+    for (let i = 0; i < storeCounter.tabImgThumbnail.length; i++) {
+      if (i != index) storeCounter.tabImgThumbnail[i].active = false;
+    }
+  } else {
+    storeCounter.modalImgs.tabImgThumbnail[index].active = true;
+    storeCounter.modalImgs.indexImgActiveModal = index;
+    for (let i = 0; i < storeCounter.modalImgs.tabImgThumbnail.length; i++) {
+      if (i != index) storeCounter.modalImgs.tabImgThumbnail[i].active = false;
+    }
+  }
+};
+const changeStateOfModal = () => {
+  storeCounter.displayModal = true;
+};
+
+const hideModal = () => {
+  storeCounter.displayModal = false;
+};
+
+const slideImgMotion = (unit) => {
+  if (
+    (!storeCounter.displayModal && unit < 0 && storeCounter.indexImgActive >= 1) ||
+    (unit > 0 && storeCounter.indexImgActive < storeCounter.tabImgThumbnail.length - 1)
+  ) {
+    storeCounter.indexImgActive += unit;
+    UpdateActiveImg(storeCounter.indexImgActive);
+  } else if (
+    (storeCounter.displayModal && unit < 0 && storeCounter.modalImgs.indexImgActiveModal >= 1) ||
+    (unit > 0 &&
+      storeCounter.modalImgs.indexImgActiveModal < storeCounter.modalImgs.tabImgThumbnail.length - 1)
+  ) {
+    storeCounter.modalImgs.indexImgActiveModal += unit;
+    UpdateActiveImg(storeCounter.modalImgs.indexImgActiveModal);
+  }
+};
+</script>
+
 <template>
   <div>
     <div class="containerShow">
@@ -5,35 +57,32 @@
         <i class="fa-solid fa-chevron-left" @click="slideImgMotion(-1)"></i>
         <i class="fa-solid fa-chevron-right" @click="slideImgMotion(1)"></i>
         <img
-          :src="require('@/assets/' + imgActive)"
+          :src="getImageUrl(imgActive)"
           alt="Active_img"
           @click="changeStateOfModal()"
         />
       </div>
       <div class="imgsMiniature">
         <div
-          v-for="(objImg, index) in tabImgThumbnail"
+          v-for="(objImg, index) in storeCounter.tabImgThumbnail"
           :key="index"
           @click="UpdateActiveImg(index)"
           :class="{ imgActive: objImg.active }"
         >
-          <img
-            :src="require('@/assets/' + objImg.url)"
-            :alt="'img-product' + index"
-          />
+          <img :src="getImageUrl(objImg.url)" />
         </div>
       </div>
     </div>
-    <div class="modalContainer" v-if="displayModal">
+    <div class="modalContainer" v-if="storeCounter.displayModal">
       <div class="BigImgModal">
         <i class="fa-solid fa-xmark" @click="hideModal()"></i>
         <i class="fa-solid fa-chevron-left" @click="slideImgMotion(-1)"></i>
         <i class="fa-solid fa-chevron-right" @click="slideImgMotion(1)"></i>
-        <img :src="require('@/assets/' + imgActiveModal)" alt="Active_img" />
+        <img :src="getImageUrl(imgActiveModal)" alt="Active_img" />
         <div class="imgsMiniature">
           <img
-            v-for="(objImg, index) in modalImgs.tabImgThumbnail"
-            :src="require('@/assets/' + objImg.url)"
+            v-for="(objImg, index) in storeCounter.modalImgs.tabImgThumbnail"
+            :src="getImageUrl(objImg.url)"
             :alt="'img-product' + index"
             :key="index"
             @click="UpdateActiveImg(index)"
@@ -44,106 +93,6 @@
     </div>
   </div>
 </template>
-
-<script>
-
-export default {
-  data() {
-    return {
-      indexImgActive: 0,
-
-      tabBigImg: [
-        "image-product-1.jpg",
-        "image-product-2.jpg",
-        "image-product-3.jpg",
-        "image-product-4.jpg",
-      ],
-
-      tabImgThumbnail: [
-        { url: "image-product-1-thumbnail.jpg", active: true },
-        { url: "image-product-2-thumbnail.jpg", active: false },
-        { url: "image-product-3-thumbnail.jpg", active: false },
-        { url: "image-product-4-thumbnail.jpg", active: false },
-      ],
-
-      modalImgs: {
-        indexImgActiveModal: 0,
-        tabBigImg: [
-          "image-product-1.jpg",
-          "image-product-2.jpg",
-          "image-product-3.jpg",
-          "image-product-4.jpg",
-        ],
-
-        tabImgThumbnail: [
-          { url: "image-product-1-thumbnail.jpg", active: true },
-          { url: "image-product-2-thumbnail.jpg", active: false },
-          { url: "image-product-3-thumbnail.jpg", active: false },
-          { url: "image-product-4-thumbnail.jpg", active: false },
-        ],
-      },
-
-      displayModal: false,
-    };
-  },
-  computed: {
-
-    imgActive() {
-      return this.tabBigImg[this.indexImgActive];
-    },
-    imgActiveModal() {
-      return this.modalImgs.tabBigImg[this.modalImgs.indexImgActiveModal];
-    },
-  },
-
-  methods: {
-    UpdateActiveImg(index) {
-      if (!this.displayModal) {
-        this.tabImgThumbnail[index].active = true;
-        this.indexImgActive = index;
-        for (let i = 0; i < this.tabImgThumbnail.length; i++) {
-          if (i != index) this.tabImgThumbnail[i].active = false;
-        }
-      } else {
-        this.modalImgs.tabImgThumbnail[index].active = true;
-        this.modalImgs.indexImgActiveModal = index;
-        for (let i = 0; i < this.modalImgs.tabImgThumbnail.length; i++) {
-          if (i != index) this.modalImgs.tabImgThumbnail[i].active = false;
-        }
-      }
-    },
-    changeStateOfModal() {
-      this.displayModal = true;
-    },
-
-    hideModal() {
-      this.displayModal = false;
-    },
-
-    slideImgMotion(unit) {
-      if (
-        (!this.displayModal && unit < 0 && this.indexImgActive >= 1) ||
-        (unit > 0 && this.indexImgActive < this.tabImgThumbnail.length - 1)
-      ) {
-        this.indexImgActive += unit;
-        this.UpdateActiveImg(this.indexImgActive);
-      } else if (
-        (this.displayModal &&
-          unit < 0 &&
-          this.modalImgs.indexImgActiveModal >= 1) ||
-        (unit > 0 &&
-          this.modalImgs.indexImgActiveModal <
-            this.modalImgs.tabImgThumbnail.length - 1)
-      ) {
-        this.modalImgs.indexImgActiveModal += unit;
-        this.UpdateActiveImg(this.modalImgs.indexImgActiveModal);
-      }
-    },
-  },
-
-
-};
-</script>
 
 <style lang="scss">
 div {

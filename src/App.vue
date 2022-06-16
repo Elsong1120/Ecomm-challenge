@@ -1,3 +1,61 @@
+<script setup>
+// import HelloWorld from './components/HelloWorld.vue'
+// import TheWelcome from './components/TheWelcome.vue'
+import PreviewSneakers from "./components/PreviewSneakers.vue";
+import { useCounterStore } from "./stores/counter";
+import {computed} from 'vue'
+const storeCounter = useCounterStore();
+const cartIsEmpty = computed(()=>storeCounter.currentItemsCart.length > 0);
+
+const nbItemsCart = computed(()=>storeCounter.currentItemsCart.length);
+const getImageUrl = (name) => {
+  return new URL(`./assets/${name}`, import.meta.url).href;
+};
+// return { carouselData, getImageUrl }
+const increment = () => {
+  storeCounter.currentQuantityChosen++;
+};
+const decrement = () => {
+  storeCounter.currentQuantityChosen >= 1
+    ? storeCounter.currentQuantityChosen--
+    : "";
+};
+const addItemsToCart = () => {
+  if (storeCounter.currentQuantityChosen != 0)
+    storeCounter.tabItems[storeCounter.currentDispalyItemIndex].quantityChosen =
+      storeCounter.currentQuantityChosen;
+  if (
+    !storeCounter.currentItemsCart.includes(
+      storeCounter.tabItems[storeCounter.currentDispalyItemIndex]
+    )
+  )
+    storeCounter.currentItemsCart.push(
+      storeCounter.tabItems[storeCounter.currentDispalyItemIndex]
+    );
+};
+
+const removeItemCart = (index) => {
+  storeCounter.currentItemsCart.splice(index, 1);
+  storeCounter.tabItems[
+    storeCounter.currentDispalyItemIndex
+  ].quantityChosen = 0;
+};
+
+const ChangeStateElement = (nameItem) => {
+  switch (nameItem) {
+    case "cart":
+      storeCounter.displayCart = !storeCounter.displayCart;
+      break;
+    case "sideBar":
+      storeCounter.displaySideBar = !storeCounter.displaySideBar;
+      break;
+
+    default:
+      "";
+  }
+};
+</script>
+
 <template>
   <div id="App">
     <header>
@@ -65,16 +123,16 @@
 
           <div class="quantityContainer">
             <div class="quantity">
-              <span class="minus" @click="decrement()"
+              <span class="minus" @click="decrement"
                 ><i class="fa-solid fa-minus"></i></span
               ><span class="number">{{
                 storeCounter.currentQuantityChosen
               }}</span
-              ><span class="plus" @click="increment()"
+              ><span class="plus" @click="increment"
                 ><i class="fa-solid fa-plus"></i
               ></span>
             </div>
-            <div class="containerAddCart" @click="addItemsToCart()">
+            <div class="containerAddCart" @click="addItemsToCart">
               <div>
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span>Add to cart</span>
@@ -95,11 +153,7 @@
           v-for="(item, index) in storeCounter.currentItemsCart"
           :key="index"
         >
-          <img
-            :src="require('@/assets/' + item.urlImgMin)"
-            alt=""
-            class="imgCart"
-          />
+          <img :src="getImageUrl(item.urlImgMin)" alt="" class="imgCart" />
           <div>
             <p class="nameItem">{{ item.name }}</p>
             <p class="priceCalcul">
@@ -127,96 +181,6 @@
     </div>
   </div>
 </template>
-
-<script >
-import PreviewSneakers from "./components/PreviewSneakers.vue";
-import { useCounterStore } from "../src/store/counter";
-
-     const storeCounter = useCounterStore()
-
-
-export default {
-  name: "App",
-  components: {
-    PreviewSneakers,
-  },
-
-  data() {
-    return {
-      // tabItems: [
-      //   {
-      //     name: "Fall Limited Edition Sneakers",
-      //     quantityChosen: 0,
-      //     orginalPrice: 250,
-      //     discountPrice: 125,
-      //     urlImgMin: "image-product-1-thumbnail.jpg",
-      //   },
-      // ],
-      // currentQuantityChosen: 0,
-      // currentItemsCart: [],
-      // displayCart: false,
-      // displaySideBar: false,
-      // currentDispalyItemIndex: 0,
-    };
-  },
-
-  computed: {
-    cartIsEmpty() {
-      return storeCounter.currentItemsCart.length > 0;
-    },
-
-    nbItemsCart() {
-      return storeCounter.currentItemsCart.length;
-    },
-  },
-
-  methods: {
-    increment() {
-      storeCounter.currentQuantityChosen++;
-    },
-    decrement() {
-      storeCounter.currentQuantityChosen >= 1
-        ? storeCounter.currentQuantityChosen--
-        : "";
-    },
-    addItemsToCart() {
-      if (storeCounter.currentQuantityChosen != 0)
-        storeCounter.tabItems[
-          storeCounter.currentDispalyItemIndex
-        ].quantityChosen = storeCounter.currentQuantityChosen;
-      if (
-        !storeCounter.currentItemsCart.includes(
-          storeCounter.tabItems[storeCounter.currentDispalyItemIndex]
-        )
-      )
-        storeCounter.currentItemsCart.push(
-          storeCounter.tabItems[storeCounter.currentDispalyItemIndex]
-        );
-    },
-
-    removeItemCart(index) {
-      storeCounter.currentItemsCart.splice(index, 1);
-      storeCounter.tabItems[
-        storeCounter.currentDispalyItemIndex
-      ].quantityChosen = 0;
-    },
-
-    ChangeStateElement(nameItem) {
-      switch (nameItem) {
-        case "cart":
-          storeCounter.displayCart = !storeCounter.displayCart;
-          break;
-        case "sideBar":
-          storeCounter.displaySideBar = !storeCounter.displaySideBar;
-          break;
-
-        default:
-          "";
-      }
-    },
-  },
-};
-</script>
 
 <style lang="scss">
 #app {
